@@ -1,44 +1,38 @@
-import React, { useEffect, useState } from 'react'
-import { View, Text, Button, SafeAreaView, ScrollView, Image, FlatList, Dimensions, TouchableOpacity } from 'react-native'
+import { isTemplateElement } from '@babel/types'
 import axios from 'axios'
-
+import React, { useEffect, useState } from 'react'
+import { View, Text, TextInput, SafeAreaView, FlatList, TouchableOpacity, Image } from 'react-native'
 import { styles } from './style'
-import { useSelector, useDispatch } from 'react-redux'
-import { setCharacters, setFavorites } from '../../redux/actions/characterList'
 import { Svgs } from '../../assets/images'
+export const SearchScreen = () => {
+    const [search, setSearch] = useState('')
+    const [filterData, setFilterData] = useState([])
+    const [masterData, setMasterData] = useState([])
 
-export const CharacterList = ({ navigation }) => {
-    let favouriteCharacters = []
-    const [favorite, setFavorite] = useState(false)
-    const allBreakBadCharacters = useSelector((state) => state.allCharacters.characters)
-    const dispatch = useDispatch()
-    const getApiData = async () => {
-        const response = await axios.get('https://WWW.breakingbadapi.com/api/characters').catch((err) => {
+    const searchFilterApi = async (characterName) => {
+        const response = await axios.get(`https://WWW.breakingbadapi.com/api/characters?name=${search}`).catch((err) => {
             console.log('err', err)
         })
-        response.data && response.data.forEach((character) => {
-            character['isFavorite'] = false
-
-        });
-        // setFavorite(item.isFavorite = !item.isFavorite)
-        dispatch(setCharacters(response.data))
+        setFilterData(response.data)
+        setMasterData(response.data)
+    }
+    const searchFilter = (text) => {
+        if (text) {
+            const newData = masterData.filter((item) => {
+                const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase()
+                const textData = text.toUpperCase()
+                return itemData.indexOf(textData) > -1
+            })
+            setFilterData(newData)
+            setSearch(text)
+        } else {
+            setFilterData(masterData)
+            setSearch(text)
+        }
     }
     useEffect(() => {
-        getApiData()
-        favouriteCharacters = []
-    }, [favorite])
-
-    const addToFavorite = (item) => {
-        if ('isFavorite' in item) {
-            item.isFavorite = !item.isFavorite
-        }
-        if (item.isFavorite) {
-            favouriteCharacters.push(item)
-        } else {
-            favouriteCharacters.pop(item)
-        }
-        setFavorite(item.isFavorite)
-    }
+        searchFilterApi()
+    }, [])
     const renderBreakingBadCharacterList = ({ item, index }) => {
         const { listWrapper, textColorOfCharacter } = styles
         return (
@@ -68,15 +62,17 @@ export const CharacterList = ({ navigation }) => {
         )
     }
     return (
-        <SafeAreaView >
-            <View>
-                <FlatList
-                    data={allBreakBadCharacters}
-                    renderItem={renderBreakingBadCharacterList}
-                    keyExtractor={(item, index) => index.toString()}
-                    numColumns={2}
-                />
+        <SafeAreaView style={styles.container}>
+            <View >
+                <TextInput style={styles.inputSearch} placeholder="Search" value={search}
+                    onChangeText={(value) => searchFilter(value)} />
             </View>
+            <FlatList
+                data={filterData}
+                renderItem={renderBreakingBadCharacterList}
+                keyExtractor={(item, index) => index.toString()}
+                numColumns={2}
+            />
         </SafeAreaView>
     )
 }

@@ -7,10 +7,6 @@ import { CharacterList } from '../../components/charactersList'
 
 
 export const CharactersDetailsScreen = ({ route, navigation }) => {
-    useEffect(() => {
-        console.log('route :', route)
-        console.log('route :', route.params.character)
-    }, [])
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.characterDetailsWrapper}>

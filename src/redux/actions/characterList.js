@@ -6,3 +6,9 @@ export const setCharacters = (characters) => {
         payload: characters
     }
 }
+export const setFavorites = (characters) => {
+    return {
+        type: ActionTypes.SET_FAVORIES_CHARACTERS,
+        payload: characters
+    }
+}

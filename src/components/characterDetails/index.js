@@ -7,10 +7,6 @@ import { Svgs } from '../../assets/images'
 
 export const CharacterDetails = ({ selectedCharacter, navigation }) => {
     const { char_id, img, name, nickname, appearance, occupation, portrayed, status, birthday } = selectedCharacter
-    useEffect(() => {
-        console.log('selectedCharacter123 :', selectedCharacter)
-        console.log(char_id, img, name)
-    }, [])
     const goToBackScreen = () => {
         navigation.goBack()
     }

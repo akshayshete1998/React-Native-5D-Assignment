@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
     container: {
         flex: 1
-        // backgroundColor: '#242424'
     },
     textColor: {
         color: '#FFFFFF',
@@ -22,7 +21,6 @@ export const styles = StyleSheet.create({
         fontFamily: 'Roboto-Bold'
     },
     textWrapper: {
-        // justifyContent: 'center',
         alignItems: 'center'
     },
     appearedBox: {
@@ -68,7 +66,6 @@ export const styles = StyleSheet.create({
     occupationStyle: {
         width: '50%',
         justifyContent: 'center',
-        // alignItems: 'center'
         marginLeft: 20,
         marginRight: 20,
         marginBottom: 40

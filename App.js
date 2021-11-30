@@ -18,11 +18,12 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-import { HomeScreen } from './src/containers/home-screen/index';
-import { FavoriatesScreen } from './src/containers/favoriates-screen/index'
+import { CharacterListScreen } from './src/containers/characterList-screen/index'
+import { FavoriteCharactersScreen } from './src/containers/favorite-characters-screen/index'
 import { Provider } from 'react-redux';
 import Store from './src/redux/store'
 import { CharactersDetailsScreen } from './src/containers/characters-details-screen/index'
+import { SearchScreen } from './src/containers/search-screen/index'
 
 const Stack = createNativeStackNavigator();
 const App = () => {
@@ -30,8 +31,10 @@ const App = () => {
     <Provider store={Store}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="CharacterList" component={CharacterListScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Details" component={CharactersDetailsScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Favorites" component={FavoriteCharactersScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
