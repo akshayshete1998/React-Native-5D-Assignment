@@ -7,8 +7,19 @@ export const styles = StyleSheet.create({
     },
     inputSearch: {
         paddingVertical: 0,
-        height: 40,
-        backgroundColor: 'gray'
+        height: 80,
+        backgroundColor: 'gray',
+        width: '100%',
+        position: 'relative'
+    },
+    inputTag: {
+        fontSize: 40,
+        fontFamily: 'Roboto-Bold'
+    },
+    iocnSearchBar: {
+        position: 'absolute',
+        right: 10,
+        top: 20
     },
     listWrapper: {
         height: 300,

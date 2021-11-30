@@ -3,8 +3,9 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { View, Text, TextInput, SafeAreaView, FlatList, TouchableOpacity, Image } from 'react-native'
 import { styles } from './style'
+import Icon from 'react-native-vector-icons/Entypo';
 import { Svgs } from '../../assets/images'
-export const SearchScreen = () => {
+export const SearchScreen = ({ navigation }) => {
     const [search, setSearch] = useState('')
     const [filterData, setFilterData] = useState([])
     const [masterData, setMasterData] = useState([])
@@ -63,10 +64,19 @@ export const SearchScreen = () => {
     }
     return (
         <SafeAreaView style={styles.container}>
-            <View >
-                <TextInput style={styles.inputSearch} placeholder="Search" value={search}
-                    onChangeText={(value) => searchFilter(value)} />
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <View style={styles.inputSearch}>
+                    <TextInput placeholder="Search" style={styles.inputTag} value={search}
+                        onChangeText={(value) => searchFilter(value)} />
+                </View>
+
+                <View style={styles.iocnSearchBar}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <Icon name="cross" size={30} style={{ justifyContent: 'center', alignItems: 'center' }} color="#FFFFFF" />
+                    </TouchableOpacity>
+                </View>
             </View>
+
             <FlatList
                 data={filterData}
                 renderItem={renderBreakingBadCharacterList}
